@@ -1,4 +1,4 @@
-export const getWaitIcon = (id) => '<svg class="todo-wait-icon flex-shrink-0 w-8 h-8 text-green-500 dark:text-green-400 hover:cursor-pointer border-2 border-transparent hover:border-gray-500" data-task-id=${id} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="blue"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
+export const getWaitingIcon = (id) => '<svg class="todo-wait-icon flex-shrink-0 w-8 h-8 text-green-500 dark:text-green-400 hover:cursor-pointer border-2 border-transparent hover:border-gray-500" data-task-id=${id} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="blue"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
 
 export const getCheckIcon = (id) => `
     <svg

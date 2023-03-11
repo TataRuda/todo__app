@@ -574,7 +574,7 @@ const renderTodoList = ()=>{
     todoListEl.innerHTML = tasks.map((task)=>`
         <div class="flex items-center">
             <div class="mr-4">
-                ${task.IsCompleted ? (0, _icons.getCheckIcon)(task.id) : (0, _icons.getWaitIcon)(task.id)}
+                ${task.IsCompleted ? (0, _icons.getCheckIcon)(task.id) : (0, _icons.getWaitingIcon)(task.id)}
             </div>
             <div class="flex flex-col py-4 w-[50%]">
             ${task.isEditing ? `<input id="confirm-btn-${task.id}" value="${task.text}" class="bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">` : `<dd class="text-lg font-semibold">${task.text}</dd>`}
@@ -589,7 +589,7 @@ const renderTodoList = ()=>{
     const allTodoEditEls = document.querySelectorAll(".todo-edit-icon");
     const allTodoConfirmEls = document.querySelectorAll(".todo-confirm-icon");
     const allTodoCheckEls = document.querySelectorAll(".todo-check-icon");
-    const allTodoWaitEls = document.querySelectorAll(".todo-wait-icon");
+    const allTodoWaitingEls = document.querySelectorAll(".todo-wait-icon");
     allTodoDeleteEls.forEach((node)=>{
         node.addEventListener("click", ()=>{
             deleteTask(parseInt(node.dataset.taskId));
@@ -610,9 +610,10 @@ const renderTodoList = ()=>{
             renderTodoList();
         });
     });
-    allTodoWaitEls.forEach((node)=>{
+    allTodoWaitingEls.forEach((node)=>{
         node.addEventListener("click", ()=>{
-            checkTask(parseInt(node.dataset.taskId));
+            const taskId = parseInt(node.dataset.taskId);
+            checkTask(taskId);
             renderTodoList();
         });
     });
@@ -652,13 +653,13 @@ const onEditMode = (id)=>{
 };
 // ### check Task 
 const checkTask = (id)=>{
-    const index = tasks.findIndex((item)=>item.id === id);
+    const index = tasks.findIndex((task)=>task.id === id);
     tasks[index] = {
         ...tasks[index],
         isCompleted: true
     };
 };
-const waitTask = (id)=>{
+const waitingTask = (id)=>{
     const index = tasks.findIndex((item)=>item.id === id);
     tasks[index] = {
         ...tasks[index],
@@ -669,12 +670,12 @@ const waitTask = (id)=>{
 },{"./utils/icons":"1vpKj"}],"1vpKj":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "getWaitIcon", ()=>getWaitIcon);
+parcelHelpers.export(exports, "getWaitingIcon", ()=>getWaitingIcon);
 parcelHelpers.export(exports, "getCheckIcon", ()=>getCheckIcon);
 parcelHelpers.export(exports, "getConfirmIcon", ()=>getConfirmIcon);
 parcelHelpers.export(exports, "getEditIcon", ()=>getEditIcon);
 parcelHelpers.export(exports, "getDeleteIcon", ()=>getDeleteIcon);
-const getWaitIcon = (id)=>'<svg class="todo-wait-icon flex-shrink-0 w-8 h-8 text-green-500 dark:text-green-400 hover:cursor-pointer border-2 border-transparent hover:border-gray-500" data-task-id=${id} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="blue"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
+const getWaitingIcon = (id)=>'<svg class="todo-wait-icon flex-shrink-0 w-8 h-8 text-green-500 dark:text-green-400 hover:cursor-pointer border-2 border-transparent hover:border-gray-500" data-task-id=${id} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="blue"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
 const getCheckIcon = (id)=>`
     <svg
         class="todo-check-icon flex-shrink-0 w-8 h-8 text-green-500 dark:text-green-400 hover:cursor-pointer border-2 border-transparent hover:border-gray-500"

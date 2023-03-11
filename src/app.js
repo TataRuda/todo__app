@@ -3,7 +3,7 @@ import {
   getEditIcon,
   getDeleteIcon,
   getConfirmIcon,
-  getWaitIcon,
+  getWaitingIcon,
 } from "./utils/icons";
 
 const todoListEl = document.getElementById("todo-list");
@@ -31,7 +31,7 @@ const renderTodoList = () => {
                 ${
                   task.IsCompleted
                     ? getCheckIcon(task.id)
-                    : getWaitIcon(task.id) /** `<div class="w-8 h-8 border-2 border-transparent hover:border-gray-500 cursor-pointer"></div>`*/
+                    : getWaitingIcon(task.id) /** `<div class="w-8 h-8 border-2 border-transparent hover:border-gray-500 cursor-pointer"></div>`*/
                 }
             </div>
             <div class="flex flex-col py-4 w-[50%]">
@@ -58,7 +58,7 @@ const renderTodoList = () => {
   const allTodoEditEls = document.querySelectorAll(".todo-edit-icon");
   const allTodoConfirmEls = document.querySelectorAll(".todo-confirm-icon");
   const allTodoCheckEls = document.querySelectorAll(".todo-check-icon");
-  const allTodoWaitEls = document.querySelectorAll(".todo-wait-icon");
+  const allTodoWaitingEls = document.querySelectorAll(".todo-wait-icon");
   
 
   allTodoDeleteEls.forEach((node) => {
@@ -85,9 +85,10 @@ const renderTodoList = () => {
     });
   });
 
-  allTodoWaitEls.forEach((node) => {
+  allTodoWaitingEls.forEach((node) => {
     node.addEventListener("click", () => {
-      checkTask(parseInt(node.dataset.taskId));
+      const taskId = parseInt(node.dataset.taskId);
+      checkTask(taskId);
       renderTodoList();
     });
     });
@@ -139,14 +140,14 @@ const onEditMode = (id) => {
 // ### check Task 
 
 const checkTask = (id) => {
-  const index = tasks.findIndex((item) => item.id === id);
+  const index = tasks.findIndex((task) => task.id === id);
   tasks[index] = {
     ...tasks[index],
     isCompleted: true,
   };
 };
 
-const waitTask = (id) => {
+const waitingTask = (id) => {
   const index = tasks.findIndex((item) => item.id === id);
   tasks[index] = {
     ...tasks[index],
